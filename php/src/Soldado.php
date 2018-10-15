@@ -1,5 +1,7 @@
 <?php 
 
+namespace Skynet;
+
 class Soldado extends Unidad
 {
 	protected $damage = 40;

@@ -1,42 +1,21 @@
 <?php
 
-function show($mensaje)
-{
-	echo "<p>$mensaje</p>";
-} 
+use Skynet\Soldado;
+use Skynet\ArmaduraBronce;
+use Skynet\Arquero;
+use Skynet\ArmaduraPlata;
+
+require 'src/helpers.php';
 
 spl_autoload_register(function ($className) {
-	require "src/$className.php";
+	
+	$className = str_replace('Skynet\\', '', $className);
+	// show($className);
+	if (file_exists("src/$className.php"))
+	{
+		require "src/$className.php";
+	}
 });
-
-interface Armadura
-{
-	public function absorberDamage($damage);
-}
-
-class ArmaduraBronce implements Armadura
-{
-	public function absorberDamage($damage)
-	{
-		return $damage / 2;
-	}
-}
-
-class ArmaduraPlata implements Armadura
-{
-	public function absorberDamage($damage)
-	{
-		return $damage / 3;
-	}
-}
-
-class ArmaduraOro implements Armadura
-{
-	public function absorberDamage($damage)
-	{
-		return $damage / 4;
-	}
-}
 
 // $armadura = new ArmaduraBronce();
 $soldado = new Soldado('abraham', new ArmaduraBronce());
@@ -49,4 +28,3 @@ $soldado->setArmadura(new ArmaduraPlata());
 $arquero->atacar($soldado);
 
 $soldado->atacar($arquero);
-

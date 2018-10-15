@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+namespace Skynet;
 
 class Arquero extends Unidad
 {

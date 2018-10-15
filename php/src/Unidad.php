@@ -1,5 +1,7 @@
 <?php 
 
+namespace Skynet;
+
 abstract class Unidad
 {
 	protected $vida = 40;
