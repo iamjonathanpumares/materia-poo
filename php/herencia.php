@@ -5,44 +5,48 @@ function show($mensaje)
 	echo "<p>$mensaje</p>";
 } 
 
-abstract class Unidad
+spl_autoload_register(function ($className) {
+	require "src/$className.php";
+});
+
+interface Armadura
 {
-	protected $vida = 40;
-	protected $name;
-
-	public function __construct($name)
-	{
-		$this->name = $name;
-	}
-
-	public function move($destino)
-	{
-		show("{$this->name} se mueve hacia $destino");
-	}
-
-	abstract public function atacar($oponente);
+	public function absorberDamage($damage);
 }
 
-class Soldado extends Unidad
+class ArmaduraBronce implements Armadura
 {
-	public function atacar($oponente)
+	public function absorberDamage($damage)
 	{
-		show("{$this->name} dispara balas hacia $oponente");
+		return $damage / 2;
 	}
 }
 
-class Arquero extends Unidad
+class ArmaduraPlata implements Armadura
 {
-	public function atacar($oponente)
+	public function absorberDamage($damage)
 	{
-		show("{$this->name} dispara flechas hacia  $oponente");
+		return $damage / 3;
 	}
 }
 
-$soldado = new Soldado('jepumares');
-$soldado->move('el norte');
-$soldado->atacar('abraham');
+class ArmaduraOro implements Armadura
+{
+	public function absorberDamage($damage)
+	{
+		return $damage / 4;
+	}
+}
+
+// $armadura = new ArmaduraBronce();
+$soldado = new Soldado('abraham', new ArmaduraBronce());
+// $soldado->move('el norte');
 
 $arquero = new Arquero('rodrigo');
-$arquero->atacar('martin');
+$arquero->atacar($soldado);
+// $armadura_plata = new ArmaduraPlata();
+$soldado->setArmadura(new ArmaduraPlata());
+$arquero->atacar($soldado);
+
+$soldado->atacar($arquero);
 

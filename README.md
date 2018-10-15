@@ -466,3 +466,49 @@ foreach ($array as $llave => $valor) {
   //sentencias que pueden usar $llave y $valor
 }
 ```
+
+# Repaso de que es la herencia
+
+* Como podemos usar la herencia (mostrar el ejemplo de duplicación de código y como podemos resolverlo con la herencia)
+
+* Mostrar que podemos usar la sobreescritura de métodos a través de la herencia (Cada clase hija ataca de manera diferente)
+
+* Mostrar que son las clases abstractas y como podemos identificarlas
+
+# Mostrar la interacción con objetos
+
+Por el momento estamos pasando una cadena a nuestro método atacar pero nosotros necesitamos interactuar con un oponente, es decir, con un objeto que extienda de la clase Unidad. Se puede dar el caso de que el programador intente pasar al método atacar una cadena, por lo cual esto daría un error, ya que necesitamos pasar un objeto, pero podemos forzar de que esto suceda, de que el programador tenga que pasar una instancia de la clase Unidad o clases hijas y así asegurar de que el parametro que le pasamos a nuestro método sea un objeto.
+
+Ahora vamos a complicar un poco más el ejemplo y vamos a suponer que nuestro objeto de la clase Unidad tiene ciertos puntos de vida y cada clase hija produce ciertos puntos de daño al oponente. Cuando estamos aprendiendo POO nos quedamos con el paradigma de la programación estructurada y por lo cual todo lo queremos resolver de esa manera. (Crear los métodos get y set de la propiedad vida en la clase Unidad)
+
+Vamos a suponer que un soldado absorbe la mitad del daño del oponente por lo tanto estamos resolviendo este caso con condicionales y por consecuente con el paradigma de la programación estructurada, porque podemos complicar más nuestro ejemplo y ya no solamente tener soldados y arqueros, sino igual caballeros, magos, etc.
+
+Cuando trabajamos con la POO, nosotros más bien necesitamos indicarle al objeto que hacer, dandole un comando. (Crear el método takeDamage a la clase Unidad y poner la lógica para recibir daño en ese método)
+
+Ahora como ya vimos que podemos sobreescribir métodos en una clase hija y personalizar su comportamiento y como dijimos que nuestro soldado absorbe la mitad del daño, podemos modificar su comportamiento y a la vez llamar al método de nuestra clase padre.
+
+Vamos a modificar igual el comportamiento del método takeDamage en nuestra clase Arquero y decimos que un arquero puede evadir un ataque.
+
+> Ejercicio. Ahora requerimos que haya soldados con una armadura de plata que absorbe la tercera parte del daño y soldados con armadura de oro que absorbe la cuarta parte del daño que hace el oponente. Como resolveriamos eso con POO y con los conocimientos ya mostrados?
+
+Mostrar las dos posibles soluciones de como podemos resolver el ejercicio planteado.
+
+# Polimorfismo e Interfaces
+
+Así como un soldado y un arquero son clases, entonces una armadura puede ser igual una clase de nuestro sistema. Y que acción realiza la armadura, absorber el daño que hace el oponente, así que vamos a crear nuestra clase Armadura con un método absorbDamage que por defecto absorberá la mitad del daño del oponente.
+
+Pero aún no hemos resuelto el ejercicio en el que planteamos que tenemos distintas armaduras. Para ello vamos a utilizar de las interfaces que son como un contrato, porque nos obliga a implementar los métodos que en esa interfaz fueron declarados.
+
+# Autocarga de clases y nombres de espacio con PHP
+
+Ahora vamos a organizar nuestro código de una mejor manera, habiamos hablado de los PSR's (PHP Standard Recommendations), y una de las buenas prácticas en PHP es organizar una clase por archivo.
+
+Para ello vamos a crear una carpeta llamada src que significar source, es decir, todo nuestro código fuente de nuestro sistema y tener un archivo index.php, que es nuestro archivo principal.
+
+Ahora si nos damos cuenta nuestro código esta mejor ordenado, sin embargo tenemos otro detalle, y es la cantidad de require que tenemos en nuestro archivo index.php, pero PHP nos ayuda con eso que es llamado la autocarga de clases.
+
+Por esa razón es importante manejar un estandar en donde el nombre de la clase es el nombre del archivo(Mostrar que pasaría si cambiamos el nombre del archivo por otro diferente al nombre de la clase).
+
+Tenemos otro detalle cuando trabajamos con POO, podemos utilizar librerias de terceros, en donde el nombre de sus clases coinciden con el nombre de nuestras clases.
+
+La solución que se utilizaba anteriormente es utilizar un prefijo a nuestras clases. Sin embargo, eso genera nombres de clases demasiados largos, para ello tenemos de los namespaces.
