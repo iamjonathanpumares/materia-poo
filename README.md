@@ -512,3 +512,61 @@ Por esa razón es importante manejar un estandar en donde el nombre de la clase 
 Tenemos otro detalle cuando trabajamos con POO, podemos utilizar librerias de terceros, en donde el nombre de sus clases coinciden con el nombre de nuestras clases.
 
 La solución que se utilizaba anteriormente es utilizar un prefijo a nuestras clases. Sin embargo, eso genera nombres de clases demasiados largos, para ello tenemos de los namespaces.
+
+# Formularios
+
+Los formularios nos permiten enviar datos desde el cliente (navegador) al servidor, procesarlos y almacenar esa información en una base de datos.
+
+Vamos ahora a construir un formulario con HTML y veremos cada detalle del mismo.
+
+Podemos enviar información desde un formulario a través de diferentes métodos, GET o POST. Para acceder a esta información desde PHP llamaremos a `$_GET` y `$_POST`, estas son variables super globales.
+
+Recuerda que para hacer debugging de una variable usamos la función var_dump.
+
+# MVC (Modelo Vista Controlador) en PHP
+
+## ¿Que es el patrón MVC?
+
+El patrón de diseño (de software) MVC se encarga de separar la lógica de negocio de la interfaz de usuario y es el mas utilizado en aplicaciones web, framework, etc, ya que facilita la funcionalidad, mantenibilidad, y escalabilidad del sistema, de forma comoda y sencilla, a la vez que ayuda no mezclar lenguajes de programación en el mismo código, el conocido “código espagueti”.
+MVC divide las aplicaciones en tres niveles de abstracción:
+
+1. Modelo: es el responsable de gestionar los datos. Es decir las clases y métodos que se comunican directamente con la base de datos.
+2. Vista: es la encargada de mostrar la información al usuario, con de forma gráfica y legible.
+3. Controlador: el intermediario entre la vista y el modelo, se encarga de controlar las interacciones del usuario en la vista, pide los datos al modelo y los devuelve de nuevo a la vista para que esta los muestre al usuario. Es decir las llamadas a clases y métodos, y los datos recibidos de formularios.
+
+## ¿Como funciona el MVC?
+
+El funcionamiento básico del patrón MVC, puede resumirse en:
+
+1. El usuario realiza una petición.
+2. El controlador captura la petición.
+3. Hace la llamada al modelo correspondiente.
+4. El modelo sera el encargado de interactuar con la base de datos.
+5. El controlador recibe la información y la enviá a la vista.
+6. La vista muestra la información.
+
+![Funcionamiento del MVC en PHP](https://www.phpzag.com/wp-content/uploads/2012/07/mvc-php.jpg)
+
+# Front Controller
+
+El patrón de diseño Front Controller consiste en que un solo componente de la aplicación es el responsable de manejar de todas las peticiones HTTP que ésta recibe. Es decir, hay un solo punto de acceso para todas las peticiones.
+
+En Laravel esta función la cumple el archivo index.php que se encuentra en el directorio public. junto con el archivo .htaccess. Pues que -cuando usas el servidor web Apache- este último archivo se encarga de redirigir todas las peticiones a index.php
+
+El directorio public contiene además, las imágenes, archivos CSS y de Javascript que será públicos para los usuarios y visitantes de la aplicación, el resto de archivos donde se encuentra la lógica de la aplicación es inaccesible para ellos, es decir, son privados.
+
+# PSR-7
+
+Es importante que nuestra aplicación siempre adopte los estandares de PHP, y en este caso vamos a adoptar el PSR-7, que es un estandar en el cual nosotros vamos a normalizar como funciona una petición y una respuesta en PHP. En este caso vamos a utilizar una librería que nos ayude a implementar este estandar, la idea es que reutilizemos código.
+
+Pasar el request que adopta el estandar PSR-7 a nuestro controlador.
+
+De igual manera es importante normalizar nuestro Response.
+
+# Template engines (Motores de plantillas)
+
+Son motores que sirven para renderear el código html y sustituir las partes de código con los datos que se tienen que imprimir.
+
+PHP a pesar de que fue pensado para ser un template engine, se ha enfocado más en la programación, por eso tenemos librerías que se concentran totalmente en esto.
+
+Veamos un ejemplo para analizar las ventajas que puede traer.

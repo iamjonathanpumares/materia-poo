@@ -1,0 +1,7 @@
+RewriteEngine On
+# Si ya estamos dentro de la carpeta public, ya no hagamos nada más.
+RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]
+# Cuando encuentre el request, que nos lo mande como un redireccionamiento hacia /public
+RewriteRule ^ %1 [L,NE,R=302]
+# Cualquier cosa que encuentre que lo mande a public
+RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
