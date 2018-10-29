@@ -2,31 +2,31 @@
 
 namespace Skynet\Controllers;
 
+use Skynet\Models\Job;
+
 class JobController extends BaseController
 {
-	public function create($request)
-	{		
-		echo $this->renderHTML('jobs/add.twig', [
-			'title' => 'Hola',
-			'description' => 'Aprendiendo MVC con PHP',
-			'jobs' => [
-				[
-					'title' => 'PHP',
-					'description' => 'Full Snack'
-				],
-				[
-					'title' => 'Django',
-					'description' => 'Full Snack'
-				],
-			]
+	public function index($request)
+	{
+		$jobs = Job::all();
+		return $this->renderHTML('jobs/index.twig', [
+			'jobs' => $jobs
 		]);
+	}
+
+	public function create($request)
+	{
+		return $this->renderHTML('jobs/add.twig');
 	}
 
 	public function store($request)
 	{
-		echo '<pre>';
-		var_dump($request->getParsedBody());
-		echo '</pre>';
+		$postData = $request->getParsedBody();
+		$job = new Job();
+		$job->title = $postData['title'];
+		$job->description = $postData['description'];
+		$job->save();
+		return $this->redirect('/jobs');
 	}
 }
 

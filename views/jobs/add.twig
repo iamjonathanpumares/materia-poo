@@ -1,14 +1,7 @@
 {% extends "base.twig" %}
 
 {% block content %}
-  <h1>{{ title }}</h1>
-  <p>{{ description }}</p>
-  <ul>
-    {% for z in jobs %}
-      <li>{{ z.title }} - {{ z.description }}</li>
-    {% endfor %}
-  </ul>
-
+  <h1>Create Job</h1>
   <form action="" method="POST">
     <div class="form-group">
       <label for="id_title">Title</label>

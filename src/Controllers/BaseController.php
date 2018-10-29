@@ -2,6 +2,9 @@
 
 namespace Skynet\Controllers;
 
+use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Diactoros\Response\RedirectResponse;
+
 class BaseController
 {
 	protected $templateEngine;
@@ -17,6 +20,11 @@ class BaseController
 
 	public function renderHTML($templateName, $data = [])
 	{
-		return $this->templateEngine->render($templateName, $data);
+		return new HtmlResponse($this->templateEngine->render($templateName, $data));
+	}
+
+	public function redirect($url)
+	{
+		return new RedirectResponse($url);
 	}
 }

@@ -13,10 +13,34 @@ require '../vendor/autoload.php';
 // use Skynet\Arquero;
 // use Skynet\ArmaduraPlata;
 use Aura\Router\RouterContainer;
+use Illuminate\Database\Capsule\Manager as Capsule;
+
+$capsule = new Capsule;
+
+$capsule->addConnection([
+    'driver'    => 'mysql',
+    'host'      => 'localhost',
+    'database'  => 'poo',
+    'username'  => 'root',
+    'password'  => '',
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+    'prefix'    => '',
+]);
+
+// Make this Capsule instance available globally via static methods... (optional)
+$capsule->setAsGlobal();
+
+// Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
+$capsule->bootEloquent();
 
 $routerContainer = new RouterContainer();
 $map = $routerContainer->getMap();
 
+$map->get('jobs.index', '/jobs', [
+	'controller' => 'Skynet\Controllers\JobController',
+	'action' => 'index'
+]);
 $map->get('jobs.create', '/jobs/create', [
 	'controller' => 'Skynet\Controllers\JobController',
 	'action' => 'create'
@@ -45,6 +69,7 @@ $route = $matcher->match($request);
 if (!$route)
 {
 	echo 'No se encontro la ruta';
+	http_response_code(404);
 }
 else
 {
@@ -52,7 +77,14 @@ else
 	$controllerName = $handlerData['controller'];
 	$actionName = $handlerData['action'];
 	$controller = new $controllerName;
-	$controller->$actionName($request);
+	$response = $controller->$actionName($request);
+	foreach ($response->getHeaders() as $name => $values) {
+		foreach ($values as $value) {
+			header(sprintf('%s: %s', $name, $value), false);
+	     }
+	}
+	http_response_code($response->getStatusCode());
+	echo $response->getBody();
 }
 
 // $armadura = new ArmaduraBronce();
