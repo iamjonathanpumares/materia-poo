@@ -8,6 +8,7 @@
 			<th>ID</th>
 			<th>Title</th>
 			<th>Description</th>
+			<th>Acciones</th>
 		</thead>
 		<tbody>
 			{% for job in jobs %}
@@ -15,6 +16,7 @@
 					<td>{{ job.id }}</td>
 					<td>{{ job.title }}</td>
 					<td>{{ job.description }}</td>
+					<td><a href="/jobs/{{ job.id }}/edit" class="btn btn-primary">Editar</a></td>
 				</tr>
 			{% endfor %}
 		</tbody>

@@ -49,6 +49,14 @@ $map->post('jobs.store', '/jobs/create', [
 	'controller' => 'Skynet\Controllers\JobController',
 	'action' => 'store'
 ]);
+$map->get('jobs.edit', '/jobs/{id}/edit', [
+	'controller' => 'Skynet\Controllers\JobController',
+	'action' => 'edit'
+]);
+$map->post('jobs.update', '/jobs/{id}/edit', [
+	'controller' => 'Skynet\Controllers\JobController',
+	'action' => 'update'
+]);
 
 $matcher = $routerContainer->getMatcher();
 
@@ -73,6 +81,10 @@ if (!$route)
 }
 else
 {
+	foreach ($route->attributes as $key => $val) 
+	{
+	    $request = $request->withAttribute($key, $val);
+	}
 	$handlerData = $route->handler;
 	$controllerName = $handlerData['controller'];
 	$actionName = $handlerData['action'];

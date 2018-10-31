@@ -28,6 +28,26 @@ class JobController extends BaseController
 		$job->save();
 		return $this->redirect('/jobs');
 	}
+
+	public function edit($request)
+	{
+		$id = $request->getAttribute('id');
+		$job = Job::where('id', $id)->first();
+		return $this->renderHTML('jobs/edit.twig', [
+			'job' => $job
+		]);
+	}
+
+	public function update($request)
+	{
+		$postData = $request->getParsedBody();
+		$id = $request->getAttribute('id');
+		$job = Job::where('id', $id)->first();
+		$job->title = $postData['title'];
+		$job->description = $postData['description'];
+		$job->save();
+		return $this->redirect('/jobs');
+	}
 }
 
 ?>

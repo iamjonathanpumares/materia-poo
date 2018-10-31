@@ -570,3 +570,16 @@ Son motores que sirven para renderear el código html y sustituir las partes de 
 PHP a pesar de que fue pensado para ser un template engine, se ha enfocado más en la programación, por eso tenemos librerías que se concentran totalmente en esto.
 
 Veamos un ejemplo para analizar las ventajas que puede traer.
+
+# Ejercicio
+
+Crear una tabla users con 5 columnas: id, email, password, created_at, updated_at
+
+* Crear usuarios
+* Listar usuarios
+
+# Tutoriales
+
+[Laragon, un entorno de desarrollo para Laravel en Windows](https://styde.net/laragon-un-entorno-de-desarrollo-para-laravel-en-windows/)
+
+[Creando Virtual Hosts con Apache en Windows para WAMP o XAMPP](https://styde.net/creando-virtual-hosts-con-apache-en-windows-para-wamp-o-xampp/)
