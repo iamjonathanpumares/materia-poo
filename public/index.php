@@ -41,6 +41,10 @@ $map->get('jobs.index', '/jobs', [
 	'controller' => 'Skynet\Controllers\JobController',
 	'action' => 'index'
 ]);
+$map->get('jobs.show', '/jobs/{id}', [
+	'controller' => 'Skynet\Controllers\JobController',
+	'action' => 'show'
+])->tokens(['id' => '\d+']);
 $map->get('jobs.create', '/jobs/create', [
 	'controller' => 'Skynet\Controllers\JobController',
 	'action' => 'create'
@@ -56,6 +60,14 @@ $map->get('jobs.edit', '/jobs/{id}/edit', [
 $map->post('jobs.update', '/jobs/{id}/edit', [
 	'controller' => 'Skynet\Controllers\JobController',
 	'action' => 'update'
+]);
+$map->get('jobs.delete', '/jobs/{id}/delete', [
+	'controller' => 'Skynet\Controllers\JobController',
+	'action' => 'delete'
+]);
+$map->post('jobs.destroy', '/jobs/{id}/delete', [
+	'controller' => 'Skynet\Controllers\JobController',
+	'action' => 'destroy'
 ]);
 
 $matcher = $routerContainer->getMatcher();

@@ -1,0 +1,12 @@
+{% extends "base.twig" %}
+
+{% block content %}
+  <h1>Delete Job</h1>
+  <form action="" method="POST">
+    <div class="form-group">
+      <p>¿Esta seguro que desea eliminar el job {{ job.title }}?</p>
+    </div>
+    <button type="submit" class="btn btn-danger">Submit</button>
+    <a href="/jobs" class="btn btn-primary">No, regresar al index</a>
+  </form>
+{% endblock %}

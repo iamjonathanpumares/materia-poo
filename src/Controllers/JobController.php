@@ -14,6 +14,15 @@ class JobController extends BaseController
 		]);
 	}
 
+	public function show($request)
+	{
+		$id = $request->getAttribute('id');
+		echo '<h1>Estamos en el método show()</h1>';
+		echo '<pre>';
+		var_dump($id);
+		echo '</pre>';
+	}
+
 	public function create($request)
 	{
 		return $this->renderHTML('jobs/add.twig');
@@ -46,6 +55,23 @@ class JobController extends BaseController
 		$job->title = $postData['title'];
 		$job->description = $postData['description'];
 		$job->save();
+		return $this->redirect('/jobs');
+	}
+
+	public function delete($request)
+	{
+		$id = $request->getAttribute('id');
+		$job = Job::find($id);
+		return $this->renderHTML('jobs/delete.twig', [
+			'job' => $job
+		]);
+	}
+
+	public function destroy($request)
+	{
+		$id = $request->getAttribute('id');
+		$job = Job::find($id);
+		$job->delete();
 		return $this->redirect('/jobs');
 	}
 }

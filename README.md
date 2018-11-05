@@ -583,3 +583,15 @@ Crear una tabla users con 5 columnas: id, email, password, created_at, updated_a
 [Laragon, un entorno de desarrollo para Laravel en Windows](https://styde.net/laragon-un-entorno-de-desarrollo-para-laravel-en-windows/)
 
 [Creando Virtual Hosts con Apache en Windows para WAMP o XAMPP](https://styde.net/creando-virtual-hosts-con-apache-en-windows-para-wamp-o-xampp/)
+
+# Conceptos importantes de la POO en PHP
+
+* Encapsulamiento
+* Getters y Setters
+* Herencia
+* Sobreescritura de métodos
+* Clases abstractas
+
+# Documentación
+
+Para revisar la documentación sobre el uso del framework visite el siguiente enlace: [Construyendo y utilizando nuestro propio framework con PHP](https://jonathan-pumares.gitbook.io/materia-poo/)
