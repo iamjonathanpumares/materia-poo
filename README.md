@@ -571,6 +571,20 @@ PHP a pesar de que fue pensado para ser un template engine, se ha enfocado más 
 
 Veamos un ejemplo para analizar las ventajas que puede traer.
 
+# Validaciones
+
+Cuando estamos desarrollando nuestra aplicación, por lo general guardamos los datos dentro de una base de datos a través de formularios que los mismos usuarios del sistema llenan. Estos datos que los usuarios llenan en los formularios, podrían ser datos que no son válidos por dos razones:
+
+1. El usuario puede equivocarse y tratar de poner en un campo un formato no válido para el mismo. Un ejemplo es el CURP que cuenta con una longitud y con un formato específico.
+
+2. El usuario intencionalmente quiere que el sistema falle y con eso comprometer la seguridad del mismo.
+
+Para eso tenemos las validaciones, es decir, necesitamos validar los datos que nos estan enviando y hacer tener una base de datos integra.
+
+En este caso para las validaciones vamos a utilizar una librería que vamos a instalar desde composer.
+
+[respect/validation](https://packagist.org/packages/respect/validation)
+
 # Ejercicio
 
 Crear una tabla users con 5 columnas: id, email, password, created_at, updated_at

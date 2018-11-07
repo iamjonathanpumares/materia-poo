@@ -3,6 +3,7 @@
 namespace Skynet\Controllers;
 
 use Skynet\Models\Job;
+use Skynet\Validators\JobValidator;
 
 class JobController extends BaseController
 {
@@ -30,12 +31,25 @@ class JobController extends BaseController
 
 	public function store($request)
 	{
+		$errors = [];
 		$postData = $request->getParsedBody();
-		$job = new Job();
-		$job->title = $postData['title'];
-		$job->description = $postData['description'];
-		$job->save();
-		return $this->redirect('/jobs');
+
+		// Validamos los datos
+		$jobValidator = new JobValidator($postData);
+
+		if ($jobValidator->is_valid())
+		{
+			$job = new Job();
+			$job->title = $postData['title'];
+			$job->description = $postData['description'];
+			$job->save();
+			return $this->redirect('/jobs');
+		}
+
+		 return $this->renderHTML('jobs/add.twig', [
+		 	'errors' => $jobValidator->getErrors()
+		 ]);                 
+
 	}
 
 	public function edit($request)

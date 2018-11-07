@@ -5,7 +5,7 @@ namespace Skynet\Controllers;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 
-class BaseController
+abstract class BaseController
 {
 	protected $templateEngine;
 
