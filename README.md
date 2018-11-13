@@ -467,6 +467,214 @@ foreach ($array as $llave => $valor) {
 }
 ```
 
+# ¿Por qué necesitamos clases y objetos?
+
+Vamos a poner como ejemplo una aplicación en donde tenemos que recaudar datos de personas (su nombre y apellido) a través de un formulario.
+
+```
+<?php
+
+$firstName = 'Jonathan';
+$lastName = 'Pumares';
+
+echo "Bienvenido $firstName $lastName";
+
+```
+
+El primer error que podemos visualizar es que estamos juntando la lógica de negocios y la vista. En donde la vista puede estar en un archivo de PHP aparte.
+
+> Nota: Para efectos del ejemplo estamos poniendo todo en un mismo archivo.
+
+Luego si queremos poner algo de lógica para mostrar el nombre completo, podemos crear una variable que guarde el nombre completo de la persona:
+
+```
+<?php
+
+$firstName = 'Jonathan';
+$lastName = 'Pumares';
+
+$fullName = "$firstName $lastName";
+
+echo "Bienvenido $fullName";
+
+```
+
+Pero que pasa si tenemos más personas:
+
+```
+<?php
+
+$firstName = 'Jonathan';
+$lastName = 'Pumares';
+
+$fullName = "$firstName $lastName";
+
+$firstName2 = 'Carlos';
+$lastName2 = 'Chable';
+
+$fullName2 = "$firstName2 $lastName2";
+
+echo "Bienvenido $fullName2";
+
+```
+
+Ven a donde queremos llegar, porque que pasa si la lógica para imprimir el nombre completo de una persona cambia, y ahora queremos que primero se imprima el apellido y luego el nombre:
+
+```
+<?php
+
+$firstName = 'Jonathan';
+$lastName = 'Pumares';
+
+$fullName = "$lastName $firstName";
+
+$firstName2 = 'Carlos';
+$lastName2 = 'Chable';
+
+$fullName2 = "$lastName2 $firstName2";
+
+echo "Bienvenido $fullName2";
+
+```
+
+Tendríamos que cambiar esto en todas las variables en donde imprime el nombre completo.
+
+Y que pasaría si por error no escribimos bien el nombre de la variable `$firstName2`, como por ejemplo que se me olvide ponerle el número 2:
+
+```
+<?php
+
+$firstName = 'Jonathan';
+$lastName = 'Pumares';
+
+$fullName = "$lastName $firstName";
+
+$firstName = 'Carlos';
+$lastName2 = 'Chable';
+
+$fullName2 = "$lastName2 $firstName2";
+
+echo "Bienvenido $fullName2";
+
+```
+
+Entonces sin querer estamos cambiando el nombre de la primera persona.
+
+Como ponemos solucionar esto, utilizando clases y objetos.
+
+Para declarar una clase lo hacemos de la siguiente manera:
+
+```
+<?php
+class Persona
+{
+    // Propiedades
+    protected $firstName;
+    protected $lastName;
+
+    // Métodos
+    public function fullName()
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+}
+
+```
+
+Una clase es un tipo o especie de algo. En este caso estamos trabajando con personas, por lo tanto le ponemos a nuestra clase `Persona`.
+
+Podemos ver las clases como una abstracción de un elemento de la vida real para transformarlos en elementos utilizables dentro de la programación. Las clases están conformadas tanto por propiedades (que son como variables dentro de la clase) como por métodos (que son como funciones dentro de la clase).
+
+Como ya se menciono una clase se compone de dos elementos importantes:
+
+* Las propiedades
+
+Las propiedades las podemos comparar con las variables dentro de la clase, en el ejemplo tenemos como propiedades de la Clase Persona el nombre y el apellido.
+
+* Los métodos
+
+Un método es una acción realizada por un objeto, estos están definidos como las funciones de la clase. Por ejemplo el método fullName me retorna el nombre completo de una Persona.
+
+Luego para poder utilizar esa clase, necesitamos instanciarla, es decir, crear un objeto de la clase Persona:
+
+```
+$person1 = new Persona;
+$person1->firstName = 'Jonathan';
+$person1->lastName = 'Pumares';
+
+echo "{$person1->fullName()}";
+```
+
+Vamos a aprender algo más sobre POO, en este ejemplo que estamos manejando, primero creamos una instancia del objeto Persona y luego le asignamos el nombre y el apellido al objeto.
+
+En este caso no tiene sentido crear una nueva persona si no tenemos un nombre y un apellido, por lo que podemos decir que estas dos propiedades son obligatorias. Así que le podemos pasar el nombre y el apellido a nuestro objeto desde la creación del mismo, y esto lo hacemos con ayuda del método constructor de la clase.
+
+Ahora veamos que funcion cumple el método constructor:
+
+```
+function __construct($firstName, $lastName)
+{
+    $this->firstName = $firstName;
+    $this->lastName  = $lastName;
+}
+```
+
+Dentro del código de un constructor se suelen asignar los valores de algunas o todas las propiedades de dicho objeto, para conseguir que el objeto sea creado con valores iniciales. Por ende, un método constructor se ejecuta cada vez que se instancia la clase. No es de carácter obligatorio contar con uno, pero suelen ser bastante útiles. En nuestro ejemplo, cuando se inicia un objeto del tipo Persona va asignar a las propiedades $firstName y $lastName con los datos que coloquemos cuando instanciamos nuestro objeto.
+
+```
+$person1 = new Person('Duilio', 'Palacios');
+```
+
+Para asignar valores o referirnos a la propiedad dentro de una clase se utiliza $this, por ejemplo si utilizamos `$this->firstName` nos referimos a la variable dentro de nuestra clase Persona.
+
+Y para referirnos a propiedades o métodos fuera de la clase entonces utilizamos la variable donde se guarda el objeto, y luego se utiliza la fecha (->) la cual  nos permite acceder a las propiedades o métodos de nuestra Clase.
+
+```
+echo "Bienvenido {$person1->fullName()}";
+```
+
+## Ejemplo
+
+Hagamos un ejercicio con un Teléfono, que en este caso sería el objeto de la clase, algunas de las características pueden ser modelo, color y compañía, por otro lado dentro de sus funciones tenemos realizar llamadas y enviar mensajes. Partiendo de eso, podemos crear nuestro objeto:
+
+```
+/**
+ * Clase Telefono
+ */
+class Phone
+{
+    var $model;
+    var $color;
+    var $company;
+ 
+    function __construct($model, $color, $company)
+    {
+        $this->model   = $model;
+        $this->color   = $color;
+        $this->company = $company;
+    }
+ 
+    function call()
+    {
+        return 'Estoy llamando a otro móvil';
+    }
+ 
+    function sms()
+    {
+        return "Estoy enviando un mensaje de texto";
+    }
+}
+ 
+$nokia = new Phone('Nokia', 'Blanco', 'Movistar');
+```
+
+Como se pudo observar, las características son parte de las propiedades del objeto, definidas en variables, y las funciones son las acciones o métodos que dicho objeto puede realizar. Tenemos que utilizar el símbolo -> para interactuar con dichas propiedades y métodos:
+
+```
+echo $nokia->call(); // Estoy llamando a otro móvil
+echo $nokia->color; // Imprimirá Blanco
+```
+
 # Repaso de que es la herencia
 
 * Como podemos usar la herencia (mostrar el ejemplo de duplicación de código y como podemos resolverlo con la herencia)
@@ -512,6 +720,24 @@ Por esa razón es importante manejar un estandar en donde el nombre de la clase 
 Tenemos otro detalle cuando trabajamos con POO, podemos utilizar librerias de terceros, en donde el nombre de sus clases coinciden con el nombre de nuestras clases.
 
 La solución que se utilizaba anteriormente es utilizar un prefijo a nuestras clases. Sin embargo, eso genera nombres de clases demasiados largos, para ello tenemos de los namespaces.
+
+# Propiedades y métodos estáticos
+
+Mientras que los valores de las propiedades que hemos visto pertenecen a la instancia de un objeto, una propiedad estática forma parte de la clase, es decir, no hay necesidad de crear una instancia de una clase para poder acceder a las propiedades estáticas.
+
+## Operador de resolución de ámbito
+
+Para llamar a métodos estáticos, acceder a propiedades estáticas o constantes, usamos el operador de resolución de ámbito `::`. Veamos algunos ejemplos:
+
+* Str::camelCase('words_with_underscores'); debería retornar: wordsWithUnderscores
+* Unit::MAX_DAMAGE
+* Diccionario::$words
+
+Nota: Cuando estamos creando métodos, debemos procurar que los mismo sean cortos y sean legibles, por lo tanto nn método necesita refactorización cuando sentimos la necesidad de comenzar a agregar comentarios.
+
+## Named constructors
+
+A pesar de que eliminamos la clase Soldier, todavia tenemos este concepto, un soldado tiene una espada y ponemos decir que por defecto todos los soldados tienen una armadura.
 
 # Formularios
 

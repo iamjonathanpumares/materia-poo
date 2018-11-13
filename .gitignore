@@ -187,5 +187,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Configuration file
+.env
+
 
 # End of https://www.gitignore.io/api/macos,linux,windows,composer,phpstorm,sublimetext

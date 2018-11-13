@@ -8,6 +8,9 @@ require '../src/helpers.php';
 
 require '../vendor/autoload.php';
 
+$dotenv = new Dotenv\Dotenv(__DIR__ . '/..');
+$dotenv->load();
+
 // use Skynet\Soldado;
 // use Skynet\ArmaduraBronce;
 // use Skynet\Arquero;
@@ -19,10 +22,10 @@ $capsule = new Capsule;
 
 $capsule->addConnection([
     'driver'    => 'mysql',
-    'host'      => 'localhost',
-    'database'  => 'poo',
-    'username'  => 'root',
-    'password'  => '',
+    'host'      => getenv('DB_HOST'),
+    'database'  => getenv('DB_NAME'),
+    'username'  => getenv('DB_USER'),
+    'password'  => getenv('DB_PASS'),
     'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix'    => '',
@@ -68,6 +71,11 @@ $map->get('jobs.delete', '/jobs/{id}/delete', [
 $map->post('jobs.destroy', '/jobs/{id}/delete', [
 	'controller' => 'Skynet\Controllers\JobController',
 	'action' => 'destroy'
+]);
+
+$map->get('users.index', '/users', [
+	'controller' => 'Skynet\Controllers\UserController',
+	'action' => 'index'
 ]);
 
 $matcher = $routerContainer->getMatcher();

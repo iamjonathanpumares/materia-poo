@@ -13,9 +13,14 @@ abstract class BaseController
 	{
 		$loader = new \Twig_Loader_Filesystem('../views');
 		$this->templateEngine = new \Twig_Environment($loader, array(
-			'debug' => true,
+			'debug' => getenv('APP_DEBUG'),
 		    'cache' => false,
 		));
+
+		$function = new \Twig_Function('asset', function ($path) {
+		    echo htmlspecialchars(getenv('APP_URL') . '/public/' . $path);
+		});
+		$this->templateEngine->addFunction($function);
 	}
 
 	public function renderHTML($templateName, $data = [])

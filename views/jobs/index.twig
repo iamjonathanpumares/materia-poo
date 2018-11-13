@@ -1,5 +1,9 @@
 {% extends "base.twig" %}
 
+{% block custom_styles %}
+<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+{% endblock %}
+
 {% block content %}
 	<a href="/jobs/create" class="btn btn-success">Nuevo Job</a>
 	<h1>Lista de Jobs</h1>
@@ -23,4 +27,8 @@
 			{% endfor %}
 		</tbody>
 	</table>
+{% endblock %}
+
+{% block custom_scripts %}
+<script src="{{ asset('js/main.js') }}"></script>
 {% endblock %}
