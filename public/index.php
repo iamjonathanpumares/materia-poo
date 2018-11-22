@@ -8,6 +8,8 @@ require '../src/helpers.php';
 
 require '../vendor/autoload.php';
 
+session_start();
+
 $dotenv = new Dotenv\Dotenv(__DIR__ . '/..');
 $dotenv->load();
 
@@ -17,6 +19,7 @@ $dotenv->load();
 // use Skynet\ArmaduraPlata;
 use Aura\Router\RouterContainer;
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Skynet\Middlewares\AuthRule;
 
 $capsule = new Capsule;
 
@@ -39,6 +42,86 @@ $capsule->bootEloquent();
 
 $routerContainer = new RouterContainer();
 $map = $routerContainer->getMap();
+
+// Home
+$map->get('home.index', '/', [
+	'controller' => 'Skynet\Controllers\HomeController',
+	'action' => 'index'
+]);
+$map->get('home.product-show', '/products/{id}', [
+	'controller' => 'Skynet\Controllers\HomeController',
+	'action' => 'productShow'
+]);
+
+// Admin\Website
+$map->get('website.configuration', '/admin/website/configuration', [
+	'controller' => 'Skynet\Controllers\Admin\WebsiteController',
+	'action' => 'configuration',
+	'auth' => true
+]);
+$map->post('website.save', '/admin/website/configuration', [
+	'controller' => 'Skynet\Controllers\Admin\WebsiteController',
+	'action' => 'save',
+	'auth' => true
+]);
+
+// Admin\Users
+$map->get('users.index', '/admin/users', [
+	'controller' => 'Skynet\Controllers\Admin\UserController',
+	'action' => 'index',
+	'auth' => true
+]);
+$map->get('users.create', '/admin/users/create', [
+	'controller' => 'Skynet\Controllers\Admin\UserController',
+	'action' => 'create',
+	'auth' => true
+]);
+$map->post('users.store', '/admin/users/create', [
+	'controller' => 'Skynet\Controllers\Admin\UserController',
+	'action' => 'store',
+	'auth' => true
+]);
+
+// Admin\Products
+$map->get('products.index', '/admin/products', [
+	'controller' => 'Skynet\Controllers\Admin\ProductController',
+	'action' => 'index',
+	'auth' => true
+]);
+$map->get('products.create', '/admin/products/create', [
+	'controller' => 'Skynet\Controllers\Admin\ProductController',
+	'action' => 'create',
+	'auth' => true
+]);
+$map->post('products.store', '/admin/products/create', [
+	'controller' => 'Skynet\Controllers\Admin\ProductController',
+	'action' => 'store',
+	'auth' => true
+]);
+$map->get('products.edit', '/admin/products/{id}/edit', [
+	'controller' => 'Skynet\Controllers\Admin\ProductController',
+	'action' => 'edit',
+	'auth' => true
+]);
+$map->post('products.update', '/admin/products/{id}/edit', [
+	'controller' => 'Skynet\Controllers\Admin\ProductController',
+	'action' => 'update',
+	'auth' => true
+]);
+
+// Auth
+$map->get('auth.login', '/auth/login', [
+	'controller' => 'Skynet\Controllers\Auth\AuthController',
+	'action' => 'login'
+]);
+$map->post('auth.authenticate', '/auth/login', [
+	'controller' => 'Skynet\Controllers\Auth\AuthController',
+	'action' => 'authenticate'
+]);
+$map->get('auth.logout', '/auth/logout', [
+	'controller' => 'Skynet\Controllers\Auth\AuthController',
+	'action' => 'logout'
+]);
 
 $map->get('jobs.index', '/jobs', [
 	'controller' => 'Skynet\Controllers\JobController',
@@ -73,10 +156,9 @@ $map->post('jobs.destroy', '/jobs/{id}/delete', [
 	'action' => 'destroy'
 ]);
 
-$map->get('users.index', '/users', [
-	'controller' => 'Skynet\Controllers\UserController',
-	'action' => 'index'
-]);
+// Middlewares
+$ruleIterator = $routerContainer->getRuleIterator();
+$ruleIterator->append(new AuthRule());
 
 $matcher = $routerContainer->getMatcher();
 

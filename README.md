@@ -675,15 +675,84 @@ echo $nokia->call(); // Estoy llamando a otro móvil
 echo $nokia->color; // Imprimirá Blanco
 ```
 
-# Repaso de que es la herencia
+# Encapsulamiento, getters y setters en PHP
+
+Al principio del ejemplo en donde estabamos usando la programación estructurada con variables, teniamos dos detalles:
+
+1. La duplicación de la lógica del código.
+2. Posibilidad que por error cambiemos el valor de una variable.
+
+Ahora vamos a considerar una aplicación en donde nuestro cliente pide como requerimiento que una vez que una persona se registra no debe poder cambiar su nombre.
+
+Permitir cambiar el nombre de una persona dentro del código fuente de nuestra aplicación no tiene nada que ver con permitir que una persona cambie su nombre a través de un feature, es decir, a través de un formulario, porque puede ser que en nuestro código tengamos la capacidad de cambiar el nombre a través de nuestra clase `Persona` con sus propiedades declaradas como públicos, sin embargo nosotros no le damos la posibilidad al usuario de que cambie su nombre dentro de nuestra aplicación, porque por supuesto el usuario no va a tener acceso al código del lado del servidor ni a la base de datos de nuestra aplicación. Pero nuestro código, sobre todo nuestras clases y nuestros objetos deberían ser un reflejo de la lógica de negocios de nuestra aplicación.
+
+Uno de los objetivos más importantes de la Programación Orientada a Objetos, el cuál es poder proteger y ocultar información, a dicho proceso se le denomina encapsulamiento.
+
+El encapsulamiento de datos previene que el desarrollador haga cambios inesperados al sistema, como también ocultar la información para que no pueda ser modificada o vista por otras clases y esto es muy útil pero además fácil de hacer.
+
+## Niveles de acceso para el encapsulamiento
+
+Cada propiedad o método dentro de una clase puede tener un tipo, y con tipo nos referimos especificamente a visibilidad, cada propiedad o método dentro de una clase puede ser de tres tipos o niveles de acceso:
+
+* public
+
+Cuando una propiedad o método es `public` quiere decir que podemos acceder a este fuera del alcance de nuestra clase, es decir, en cualquier lugar de nuestro proyecto incluyendo dentro de otras clases.
+
+* protected
+
+Cuando una propiedad o método es `protected` quiere decir que podemos acceder a este solamente dentro de nuestra clase y por subclases.
+
+* private
+
+Cuando una propiedad o método es `private` quiere decir que podemos acceder a este solamente para la propia clase.
+
+# Herencia y abstracción con PHP
+
+La herencia en programación orientada a objetos, nos permite tener clases que extiendan de otras, heredando así sus propiedades y métodos no privados.
 
 * Como podemos usar la herencia (mostrar el ejemplo de duplicación de código y como podemos resolverlo con la herencia)
 
+Recuerda que una clase puede heredar de otra usando la palabra reservada extends para heredar de una clase:
+
+```
+class Child extends Parents {
+  //
+}
+```
+
+Una clase Padre solo puede heredar sus variables y métodos con visibilidad publica (public) o protegida (protected) y no privada (private)
+
 * Mostrar que podemos usar la sobreescritura de métodos a través de la herencia (Cada clase hija ataca de manera diferente)
+
+Las clases que heredan de otra clase pueden cambiar el comportamiento de la clase padre sobreescribiendo sus métodos.
+
+```
+class Parents {
+ 
+    public function say()
+    {
+      echo 'Hola!';
+    }
+}
+ 
+class Child extends Parents {
+ 
+    public function say()
+    {
+      echo 'Hola Mundo!';
+    }
+ 
+}
+ 
+$child = new Child();
+$child->say(); // Hola mundo;
+```
 
 * Mostrar que son las clases abstractas y como podemos identificarlas
 
 # Mostrar la interacción con objetos
+
+Una característica muy importante de la programación orientada a objetos es la capacidad que los objetos tienen para interactuar con otros. En programación estructurada nuestro código se lee de arriba hacia abajo y escribimos procedimientos de hasta cientos de líneas. En OOP dividimos las responsabilidades de un procedimiento en pequeñas clases y métodos y logramos que un método interactue con otros. De esta manera aunque ya no será posible leer nuestro código en línea recta, podremos hacer cambios más fácilmente en el sistema, escribir pruebas, reusar código, etc.
 
 Por el momento estamos pasando una cadena a nuestro método atacar pero nosotros necesitamos interactuar con un oponente, es decir, con un objeto que extienda de la clase Unidad. Se puede dar el caso de que el programador intente pasar al método atacar una cadena, por lo cual esto daría un error, ya que necesitamos pasar un objeto, pero podemos forzar de que esto suceda, de que el programador tenga que pasar una instancia de la clase Unidad o clases hijas y así asegurar de que el parametro que le pasamos a nuestro método sea un objeto.
 

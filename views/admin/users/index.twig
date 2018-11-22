@@ -1,0 +1,30 @@
+{% extends "base_admin.twig" %}
+
+{% block content %}
+	<a href="/admin/users/create" class="btn btn-success">Nuevo usuario</a>
+	<h1>Lista de usuarios</h1>
+	<table class="table">
+		<thead>
+			<th>Email</th>
+			<th>Activo</th>
+			<th>Editar</th>
+			<th>Eliminar</th>
+		</thead>
+		<tbody>
+			{% for user in users %}
+				<tr>
+					<td>{{ user.email }}</td>
+					<td>
+						{% if user.is_active == 1 %}
+							Activo
+						{% elseif user.is_active == 0 %}
+							Inactivo
+						{% endif %}
+					</td>
+					<td><a href="/jobs/{{ job.id }}/edit" class="btn btn-primary">Editar</a></td>
+					<td><a href="/jobs/{{ job.id }}/delete" class="btn btn-danger">Eliminar</a></td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

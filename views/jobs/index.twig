@@ -1,10 +1,13 @@
 {% extends "base.twig" %}
 
-{% block custom_styles %}
-<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
-{% endblock %}
-
 {% block content %}
+	<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+	  <div class="carousel-inner">
+	    <div class="carousel-item active">
+	      <img class="d-block w-100" src="{{ asset('img/php.jpg') }}" alt="First slide">
+	    </div>
+	  </div>
+	</div>
 	<a href="/jobs/create" class="btn btn-success">Nuevo Job</a>
 	<h1>Lista de Jobs</h1>
 	<table class="table">
@@ -27,8 +30,4 @@
 			{% endfor %}
 		</tbody>
 	</table>
-{% endblock %}
-
-{% block custom_scripts %}
-<script src="{{ asset('js/main.js') }}"></script>
 {% endblock %}

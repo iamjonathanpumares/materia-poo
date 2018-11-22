@@ -1,0 +1,21 @@
+{% extends "base_admin.twig" %}
+
+{% block content %}
+  <h1>Crear usuario</h1>
+  {% include 'partials/errors.twig' %}
+  <form action="" method="POST">
+    <div class="form-group">
+      <label for="id_email">Email</label>
+      <input type="email" name="email" class="form-control" id="id_email" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <label for="id_password">Contraseña</label>
+      <input type="password" name="password" class="form-control" id="id_password">
+    </div>
+    <div class="form-group">
+      <label for="id_confirm_password">Confirmar contraseña</label>
+      <input type="password" name="confirm_password" class="form-control" id="id_confirm_password">
+    </div>
+    <button type="submit" class="btn btn-success">Guardar</button>
+  </form>
+{% endblock %}
